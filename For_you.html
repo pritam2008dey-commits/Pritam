@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday My Princess Pratyusha 🎂👑</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(270deg, #ffdde1, #ee9ca7, #a18cd1, #fbc2eb, #fad0c4);
+      background-size: 1200% 1200%;
+      animation: backgroundShift 20s ease infinite;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    @keyframes backgroundShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 2.5em;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff6600, 0 0 60px #00ccff;
+      animation: glow 2s ease-in-out infinite alternate;
+      margin-bottom: 20px;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff6600, 0 0 30px #00ccff; }
+      to   { text-shadow: 0 0 30px #ff00ff, 0 0 50px #ff6600, 0 0 70px #00ccff; }
+    }
+
+    .stickers {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0 30px;
+      font-size: 2em;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 600px;
+      margin: 0 auto 60px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      text-align: center;
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .card h2 {
+      color: #ff3399;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 1.2em;
+      color: #333;
+      line-height: 1.6em;
+    }
+
+    .star, .flower {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      animation: fall linear infinite;
+      z-index: -1;
+    }
+
+    .star {
+      background: yellow;
+      box-shadow: 0 0 15px gold;
+    }
+
+    .flower {
+      background: radial-gradient(circle, pink, red);
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      to   { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉💐 Happy Birthday My Princess Pratyusha 💐🎉</h1>
+
+  <div class="stickers">
+    🎂 🥳 🎁 💖 😻 🌸
+  </div>
+
+  <div class="card">
+    <h2>💌 Birthday Greeting</h2>
+    <p>
+      Wish you a very Happy Birthday, my dearest princess! 👑💖<br><br>
+      On this special day, I pray to God that you always shine bright like the stars 
+      and bloom beautifully like the flowers 🌸✨. May your heart always be filled 
+      with laughter, love, and endless happiness. You are the reason behind my smile, 
+      the light of my life, and the most precious person in my world. 💕<br><br>
+      May all your dreams come true, may success follow you wherever you go, 
+      and may your journey ahead be filled with blessings, surprises, and joy. 
+      Stay as wonderful, kind, and magical as you are 😍🌟<br><br>
+      I am truly lucky to have you in my life, and today I celebrate not only 
+      your birthday but also the beautiful soul that you are. Happy Birthday, 
+      my princess — my world is brighter with you in it 🎂💖🌈
+    </p>
+  </div>
+
+  <script>
+    function createShape(type) {
+      const shape = document.createElement("div");
+      shape.classList.add(type);
+      shape.style.left = Math.random() * 100 + "vw";
+      shape.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(shape);
+      setTimeout(() => { shape.remove(); }, 10000);
+    }
+
+    setInterval(() => createShape("star"), 500);
+    setInterval(() => createShape("flower"), 800);
+  </script>
+</body>
+</html>
