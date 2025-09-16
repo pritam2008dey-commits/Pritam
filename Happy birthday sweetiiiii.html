@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Happy Birthday Swetuuu 🎉</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  :root {
+    --red: #b71c1c;
+    --navy: #031a42;
+    --pink: #e75480;
+    --white: #fff0f6;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, var(--navy), var(--pink), var(--red));
+    color: var(--white);
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+  .overlay {
+    position: fixed;
+    top:0; left:0; width: 100vw; height: 100vh;
+    background: linear-gradient(120deg, var(--red), var(--pink), var(--navy));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    text-align: center;
+    padding: 20px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    animation: fadeIn 1s ease forwards;
+    z-index: 1000;
+    user-select: none;
+  }
+  .overlay.hidden {
+    animation: fadeOut 1s ease forwards;
+    pointer-events: none;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  @keyframes fadeOut {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
+  h1.greeting {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.8rem;
+    margin: 0 0 20px 0;
+    text-shadow: 0 0 16px var(--pink);
+  }
+  p.greeting {
+    font-size: 2rem;
+    margin: 0;
+  }
+  #candleOverlay {
+    cursor: pointer;
+  }
+  #candleOverlay .candles-wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 15px;
+  }
+  .candle-container {
+    width: 50px; 
+    height: 90px;
+    background: var(--navy);
+    border-radius: 20px;
+    box-shadow: 0 0 15px var(--pink);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+  }
+  .candle {
+    width: 12px;
+    height: 40px;
+    background: var(--red);
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 2px 8px var(--pink);
+  }
+  .flame {
+    position: absolute;
+    top: -17px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 18px;
+    background: radial-gradient(circle at 50% 50%, #ffd866, #ff6600);
+    border-radius: 50% 50% 50% 50% / 56% 74% 54% 40%;
+    animation: flicker 1.2s infinite ease-in-out;
+    filter: drop-shadow(0 0 4px #ffbd45);
+  }
+  .flame.blowed {
+    animation: blowout 2s forwards;
+  }
+  @keyframes flicker {
+    0%,100% {opacity: 1;}
+    50% {opacity: 0.6;}
+  }
+  @keyframes blowout {
+    0% {opacity: 1; transform: translateY(0) scale(1);}
+    100% {opacity: 0; transform: translateY(-50px) scale(0);}
+  }
+  #candleOverlay p {
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--white);
+    text-shadow: 0 0 10px var(--pink);
+  }
+  .cake {
+    position: relative;
+    width: 200px;
+    height: 110px;
+    background: var(--red);
+    border-radius: 20px 20px 10px 10px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+    margin: 0 auto 25px;
+  }
+  .cake::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 60px;
+    width: 80px;
+    height: 25px;
+    background: #f8b9d4;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -2px 10px #ff7499 inset;
+    z-index: 1;
+  }
+  .cake-icing {
+    position: absolute;
+    top: -30px;
+    left: 60px;
+    width: 80px;
+    height: 10px;
+    background: #ff98b5;
+    border-radius: 10px 10px 4px 4px;
+    z-index: 2;
+  }
+  .cake-candle {
+    position: absolute;
+    top: -65px;
+    width: 10px;
+    height: 35px;
+    background: #ff6666;
+    border-radius: 4px;
+    box-shadow: 0 0 5px #ff3c3c;
+    z-index: 3;
+  }
+  /* Adjusted candle left positions to fit cake width */
+  .cake-candle:nth-child(1) { left: 55px; }
+  .cake-candle:nth-child(2) { left: 85px; }
+  .cake-candle:nth-child(3) { left: 115px; }
+  .cake-candle:nth-child(4) { left: 145px; }
+  .cake-candle:nth-child(5) { left: 175px; }
+  .cake-flame {
+    position: absolute;
+    width: 12px;
+    height: 18px;
+    background: radial-gradient(circle at 50% 50%, #ffd866, #ff6600);
+    border-radius: 50% 50% 50% 50% / 56% 74% 54% 40%;
+    top: -85px;
+    filter: drop-shadow(0 0 4px #ffbd45);
+    animation: flicker 1.2s infinite ease-in-out;
+    z-index: 4;
+  }
+  /* Adjusted flame left to align with candle */
+  .cake-flame:nth-child(1) { left: 52px; }
+  .cake-flame:nth-child(2) { left: 82px; }
+  .cake-flame:nth-child(3) { left: 112px; }
+  .cake-flame:nth-child(4) { left: 142px; }
+  .cake-flame:nth-child(5) { left: 172px; }
+
+  #mainContent {
+    max-width: 760px;
+    padding: 40px 20px 60px 20px;
+    margin: 0 auto 60px auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  #mainContent h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.8rem;
+    color: var(--pink);
+    text-shadow: 0 0 15px var(--red);
+    margin-bottom: 10px;
+  }
+  #mainContent h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.4rem;
+    color: var(--pink);
+    text-shadow: 0 0 10px var(--red);
+    margin: 0 0 30px 0;
+  }
+  p.romantic {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-shadow: 0 0 8px var(--pink);
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    white-space: pre-line;
+    max-width: 680px;
+    padding: 0;
+    margin-top: 0;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  /* Responsive for romantic para and ending box */
+  @media (max-width: 700px) {
+    h1.greeting { font-size: 2.3rem }
+    #mainContent h1 { font-size: 2.1rem; }
+    #mainContent h2 { font-size: 1.6rem; }
+    p.romantic {
+      font-size: 1rem;
+      max-width: 99vw;
+      padding: 0 2vw;
+    }
+    #candleOverlay .candles-wrapper {
+      gap: 8px;
+    }
+    .candle-container {
+      width: 40px; height: 75px;
+    }
+    .candle {
+      width: 10px; height: 35px;
+    }
+    .flame {
+      width: 10px; height: 15px;
+      top: -15px;
+    }
+    .cake {
+      width: 150px; height: 90px;
+    }
+    .cake::before, .cake-icing {
+      width: 70px; height: 18px;
+      top: -20px; left: 40px;
+    }
+    .cake-candle {
+      height: 28px;
+      top: -50px;
+    }
+    .cake-candle:nth-child(1) { left: 50px; }
+    .cake-candle:nth-child(2) { left: 75px; }
+    .cake-candle:nth-child(3) { left: 100px; }
+    .cake-candle:nth-child(4) { left: 125px; }
+    .cake-candle:nth-child(5) { left: 150px; }
+    .cake-flame {
+      width: 8px; height: 12px;
+      top: -65px;
+    }
+    .cake-flame:nth-child(1) { left: 47px; }
+    .cake-flame:nth-child(2) { left: 72px; }
+    .cake-flame:nth-child(3) { left: 97px; }
+    .cake-flame:nth-child(4) { left: 122px; }
+    .cake-flame:nth-child(5) { left: 147px; }
+  }
+  #loveBox {
+    background: rgba(255 240 246 / 0.15);
+    border: 2px solid var(--pink);
+    border-radius: 14px;
+    padding: 22px 25px;
+    margin-bottom: 45px;
+    box-shadow: 0 0 15px var(--red);
+    color: var(--white);
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.6em;
+    max-width: 620px;
+  }
+  #loveBox p {
+    margin: 9px 0;
+  }
+  .promises-box {
+    max-width: 700px;
+    background: rgba(255, 240, 246, 0.12);
+    border: 2px dashed var(--pink);
+    border-radius: 14px;
+    margin: 0 auto 40px;
+    padding: 26px 26px 14px;
+    box-shadow: 0 0 12px var(--red);
+    color: var(--white);
+  }
+  .promises-title {
+    color: var(--pink);
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.1rem;
+    margin-bottom: 17px;
+    text-shadow: 0 0 8px var(--red);
+    letter-spacing: 0.06em;
+  }
+  .promises-list {
+    font-size: 1.15rem;
+    list-style: none;
+    padding-left: 1.3em;
+  }
+  .promises-list li {
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .promises-list li::before {
+    content: '🌹';
+    position: absolute;
+    left: -1.3em;
+  }
+  .heart {
+    position: fixed;
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 50% 50% 50% 50%;
+    background: var(--pink);
+    opacity: 0.8;
+    transform: rotate(-45deg);
+    animation: floatUp linear infinite;
+    z-index: 10;
+  }
+  .heart.red {
+    background: var(--red);
+  }
+  .heart.navy {
+    background: var(--navy);
+  }
+  .heart::before,
+  .heart::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50% 50% 50% 50%;
+    background: inherit;
+  }
+  .heart::before {
+    top: -12.5px;
+    left: 0;
+  }
+  .heart::after {
+    top: 0;
+    left: 12.5px;
+  }
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) rotate(-45deg) scale(0.8);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-700px) rotate(-45deg) scale(1.2);
+      opacity: 0;
+    }
+  }
+  /* Ending box styles */
+  .ending-box {
+    background: linear-gradient(90deg, var(--pink), var(--red));
+    color: var(--white);
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.1rem;
+    margin: 25px auto 0 auto;
+    padding: 14px 20px;
+    text-align: center;
+    border-radius: 14px;
+    box-shadow: 0 0 14px var(--red);
+    max-width: 360px;
+    letter-spacing: 0.04em;
+    width: 90vw;
+  }
+  @media (max-width: 700px) {
+    .ending-box {
+      font-size: 1.1rem;
+      padding: 9px 7vw;
+      max-width: 95vw;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- Initial Greeting Popup -->
+<div class="overlay" id="greetingPopup" aria-live="assertive" aria-label="Birthday greeting">
+  <h1 class="greeting">Hey swetuuu ❤ <br> Happy Birthday 🎂🎈</h1>
+  <p class="greeting">Many many Happy returns of the day 🥳🎇</p>
+</div>
+
+<!-- Candle Popup -->
+<div class="overlay hidden" id="candleOverlay" aria-live="assertive" aria-label="Blow out candles" tabindex="0">
+  <div class="candles-wrapper" role="button" tabindex="0" aria-label="Click or press enter to blow out candles">
+    <div class="candle-container" aria-label="Candle 1">
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+    <div class="candle-container" aria-label="Candle 2">
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+    <div class="candle-container" aria-label="Candle 3">
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+    <div class="candle-container" aria-label="Candle 4">
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+    <div class="candle-container" aria-label="Candle 5">
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+  </div>
+  <div class="cake" aria-label="Birthday cake">
+    <div class="cake-icing"></div>
+    <div class="cake-candle"></div>
+    <div class="cake-candle"></div>
+    <div class="cake-candle"></div>
+    <div class="cake-candle"></div>
+    <div class="cake-candle"></div>
+    <div class="cake-flame"></div>
+    <div class="cake-flame"></div>
+    <div class="cake-flame"></div>
+    <div class="cake-flame"></div>
+    <div class="cake-flame"></div>
+  </div>
+  <p>Blow out the candles for your wishes 💕</p>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent" role="main" aria-label="Birthday message">
+  <h1>To my darling swetuuu ❤</h1>
+  <h2>Happy Birthday baby 💕💕💕</h2>
+  <p class="romantic">
+Hey babe! 😊 Your smile lights up every morning like the warm sun ☀, and your laughter is the sweetest song 🎶 in my heart. With every beat, my love for you grows deeper ❤. You are my dream come true, my endless joy, and my forever soulmate 🌟. On your special day, I wish you all the happiness in the world 🎉. May your dreams soar high and our love grow even stronger 🕊🌹. Together, we create a beautiful story filled with passion and endless affection 💞. Having you in my life fills it with warmth and peace 🌈. Every moment we share is a treasure I hold close 💖. Hand in hand, let’s walk this journey of life and love forevermore 👫. I promise to love and support you with all my heart, today and always 💪. You are my strength, my inspiration, and my everything 💫. Forever and always, I’m yours babee 🥰.Happy Birthday to the most precious person in my life 🎂🎈🩷. Gelhiii, today is not just your special day, it’s the day my whole world was born — you 🌎✨. You’ve been my biggest blessing, and every single day with you feels like a gift from God 💕.
+
+When you came into my life, you truly made me the happiest boy on this earth 🥹💖. You became my peace 🌸, my motivation 🔥, my strength 💪, and my safest place 🏡. You stood by me through everything, accepted all my flaws 🫂, and gave me a kind of love I never thought I deserved ❤. Just like you said I am your shoulder and strength, I want you to know — you are mine only mine and i am batman and your don 💞. I can blindly count on you till my last breath 🫶, and I promise you’ll never have to face anything alone as long as I am here.
+
+On your birthday, I want to make some promises straight from my heart .
+👑 I promise to always treat you like the Queen of my life 💕, because you truly are.
+🌹 I promise to protect your heart 💟 and always be the strongest shoulder you can lean on 🫂.
+🌸 I promise to stand by you in every storm 🌧, and celebrate every little joy with you 🎉.
+💫 I promise to love you not just on your best days 🌞, but even more on the days you feel low ❤‍🩹.
+💕 I promise to marry you and never leave you . You are the queen of my heart🩷🩷.
+💍 And above all, I promise to keep you safe from every evil eye ❤🧿, and love you endlessly for the rest of my life 💌.
+
+You are not just my girlfriend 🩷—you are my princess 👑, my best friend 🤗, my motivation 🔥, my everything 🩷 and the most beautiful part of my life ✨. You gave me your love when no one else was there, and now it’s my mission to give you happiness, peace, and love for the rest of our lives 💕 and want to make you feel like priority not an option 😘.You are the most important person i got in my life 🩷🩷.You are the only reason for my happiness ❤💗.I wait the entire the day for just the moment for the conversation with you ❤💗..Through out the day felt empty without you, i just imagine when will the time will come when i wake up and will seen you next to me 🫶 and will spend the entire day together  💞. When we both will get succeful 💞 and convince your parents and get married each other💕. The way you treated me no one has ever did .I am glad you came into my life .You stood by my side in every situation . I love you so so muchhiiiiiiiiiiiiii💗. I cant wait when we will tell our parents and will be get together and break some more beds😘 .You are the first person who make me felt valued and respected 🫶. Thank you for coming into my life😘♥.I love you tooooooo so so so so so so much 💞💓🩷😘♥💕🎀💖..You have always stand by my side .And the one with whom i could share anything as you had never judge me .You are only one who had respected me and never taken me as a formality .. I love you babee 🎀💖. Thanks for coming into my life and making my life colorful 💞.I am always with you in every situation 🩷 and will always treat you as a priority .And I only want you and the one whom I love 😘❤.I love you my wifeeee😘❤😘❤.
+
+
+Januu 💕, I love you with all my heart 🫀, mind 🧠, and soul 🕊—for today, tomorrow, and forever 💍. Thank you for being mine, thank you for choosing me, and thank you for making me feel like the luckiest boy alive 🥹❤.I am here for the long haul—through every joy and challenge, I will stand by your side unwaveringly 🩷🩷. I promise you with all my heart that one day, I will marry you, and we will build a life full of love, trust, and happiness together 💍❤. You are my greatest blessing, my forever person, and leaving you or letting you go is not something I could ever imagine 💕💕.
+
+I’m committed to us, to our dreams, and to making every moment with you as beautiful as you make my world 💕. So, on your special day and every day ahead, know that you have my whole heart, my loyalty, and my endless love—now and always 🥰✨💕.
+
+Happy Birthday, my everything 🎂🎈🎉💌.
+ 
+
+
+ Forever yours- 
+
+ Pookieeeeeee💕🫶.
+
+
+
+
+🥰 Happy Birthday to the most beautiful part of my life, my favorite reason to smile every day.
+
+🎂 You’re not just my girlfriend, you’re my happiness in human form—happy birthday, love😘❤
+
+🌸 Happy Birthday, baby! You deserve all the love, cake, and cuddles in the world today.
+
+💫 Every birthday of yours is a reminder of how lucky I am to have you by my side.
+
+🐻 Happy Birthday, my teddy bear. I promise to keep hugging you tighter each year.
+
+🦋 You make my world brighter than candles on your cake—happy birthday, angel.
+
+💕 Happy Birthday, cutie! You’re my favorite wish that came true.
+
+🌹 Happy Birthday, princess. My love for you grows with every candle you blow.
+
+🍫 Happy Birthday to my sweetest chocolate—I’ll never stop craving you.
+
+🥳 You’re my today, my tomorrow, and all my forever. Happy Birthday, my love😘.
+
+Every time I look into your eyes, I see my whole world smiling back at me. 🥰
+
+You’re not just my girlfriend—you’re my favorite dream that I never want to wake up from. ✨
+
+When you hold my hand, hug, kissed me and cuddled together, it feels like the universe is telling me I’m exactly where I belong. 🌙
+
+You’re the reason my heart beats faster, my cheeks turn red, and my soul feels complete. ❤️
+
+I don’t need a thousand wishes… because having you is my biggest miracle. 💫
+
+Your smile is my favorite sunrise, and your laugh is my favorite melody. 🌹
+
+Every love story is beautiful, but ours is my favorite part of my life . 📖💕
+
+You’re not just beautiful—you’re the definition of everything I ever prayed for. 🙈💖
+
+Even forever doesn’t feel enough with you. 🔥❤️
+
+Falling for you wasn’t a choice—it was destiny, and I’m so glad it led me to you. 🌟
+
+Today is your birthday and this is the best day for me rather than you . The day on when my world took birth❤❤ .Thanks for your love and support 🫂.You're the only one whom I can tell anything without thinking 🩷 . The one I can blindly count on always till my last breath.. My only wish is seeing you happy, peace, prosperity and love over your life.....❤❤🫂🫂💗💗🩷🩷🥹🥹💟💟💟💌💌. I will make my life's mission to give you all the care , love and priority you need❤❤. I will always be there when you need me and treat you always like my queen❤❤ . I want to love you like no one has ever done for the rest of my life💌💌.  I love you with all of my heart,mind,soul and body for the rest of my life  ❤❤ .Thanks for coming into my life gelhiiiiii🥹💟💟💟🥹💟💟💟.You're are not only my partner but also my everything  ❤❤ . You
+
+ Your's gelhaa💌
+   THE THINGS I LOVE ABOUT YOU 💖
+     
+You 😘♥💞🫶
+
+Your hair ♥✨
+
+Your lips 💋
+
+Your name 🫂
+
+Your personality 🌟
+
+Your laugh 😂
+
+Your smile 😊
+
+Your voice 🎤
+
+Your hands 🤲
+
+Your embrace 🤗
+
+Your joy 😄
+
+Your tears 😢
+
+Your face 😍
+
+Your kindness 🕊
+
+Your affection 🤍
+
+Our friendship 🤝
+
+Your beauty 👑
+
+Your love ❤
+
+Your hugs 🫂
+
+Your messages 💬
+
+Your style 👗🕶
+
+Your forgiveness 🤝
+
+Your perfection 💯
+
+The time we spend together ⏰
+
+The memories we made 📸
+
+The sound of you 🎶
+
+Watching the videos you send me 📹
+
+The jokes we make together 😂
+
+How you make me happy within 276 zetroseconds ⏳
+
+The way you can love someone like me 💘
+
+How I can talk to you and still not get bored 😆
+
+The way we met somewhere and are so close now ✨
+
+The thought of you 💭
+
+The smell of you 🌸
+
+The selflessness 🌈
+
+Your strength (you are very strong) 🦸‍♀
+
+Your bravery 🦁
+
+Your intelligence 🧠
+
+Your passion 🔥
+
+Your creativity 🎨
+
+Your patience ⏳
+
+Your respectable 💐
+
+Your positivity ☀
+
+Your trusting 🤞
+
+I believe everything you will say to me 🙏
+
+I can be myself around you 🥰
+
+I can listen to you without getting annoying 👂
+
+My day is bright because of you 🌞
+
+The fact that there is no downside about you 🥹
+
+I feel safe around you 🛡
+
+You are trustworthy 🤗
+
+You always light up my day ✨
+
+You are constantly on my mind 🧠
+
+You are very independent 🌱
+
+You're incredible 🤩
+
+You will never let me down 🙅‍♀
+
+I can trust you with my secret 🔒
+
+Well, you are ABSOLUTELY GORGEOUS! 👸
+
+You can make me laugh 😂
+
+You are adorable 🐧
+
+You humme (or hum, if that's what you meant) 🎵
+
+You are literally the definition of perfection 🌟
+
+I feel like I'm unable to live without you, totally needed 💞
+
+You are so caring and supportive 🤗
+
+You're honest 🤞
+
+You bring a smile to my face whenever I talk to you 😊
+
+You make me feel like I'm actually important 🥹
+
+You never give up 💪
+
+Your personality is really rad 🤙
+
+You are always there (the funny number '69') 😏😂
+
+You love the real me 🫶
+
+You care for someone like me ❤
+
+You always with me in my bad days 🌧
+
+I LOVE YOU SO MUCH MY LOVE! 🥰💘
+
+
+
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+🧿 I love you 💕
+
+
+I am always with you babeeee🩷🩷🩷🩷
+
+
+I love you pagli 💖
+I love you pagaliiii 💕
+I love you my penguiniiii 💞💞
+I love you my panda❤ 
+I love you sweetheart❤
+I love you guniiii💗💗
+I love you guguniii😘😘
+I love you pookieeee💝
+I love you wifeee🥰🥰
+I love you babe💌💌
+I love you mine💘 
+I love you secret keeper ❣
+I love you cutie 💟
+I love you support system 💕
+I love you diary💖
+I love you my world💞
+I love you gelhii❤
+I love you baby❤
+I love you my fav one🥰😘
+I love you bebiii😚😚
+I love you panti ji 😘😘
+I love you wifeeeee💞
+I love you meri pagliii 😘❤❤
+No matter how many times I say "I love you," those words will never fully express the depth of my feelings for you🩷. I want you to always remember that I am here for the long haul—through every joy and challenge, I will stand by your side unwaveringly🩷🩷. I promise you with all my heart that one day, I will marry you, and we will build a life full of love, trust, and happiness together 💍❤. You are my greatest blessing, my forever person, and leaving you or letting you go is not something I could ever imagine💕💕. I’m committed to us, to our dreams, and to making every moment with you as beautiful as you make my world💕. So, on your special day and every day ahead, know that you have my whole heart, my loyalty, and my endless love—now and always 🥰✨💕.
+Finally once again happy birthday my cute little sweetheart🩷🩷🩷.
+(((((((((((((((((And the most important thing you complete me ❤❤❤❤❤❤❤❤❤❤❤❤.)))))))))))))))))
+Only your's
+Pokieee🌸🌸🌸🌸
+  </p>
+  <div id="loveBox" aria-label="Romantic lines">
+    <p>💓 You’re my heartbeat</p>
+    <p>🌟 Forever and always</p>
+    <p>🌸 My sweetest joy</p>
+    <p>💪 Together, unstoppable</p>
+    <p>✨ You light up my life</p>
+    <p>💖 My forever love</p>
+    <p>🏡 You’re my happy place</p>
+    <p>🤗 Endless hugs and kisses</p>
+    <p>😊 My reason to smile every day</p>
+    <p>🛤 One more step closer to you</p>
+    <p>💞 You complete me</p>
+    <p>🌙 My love shoots to the moon</p>
+    <p>😍 I adore you beyond words</p>
+    <p>🎇 With you, life is magic</p>
+    <p>➕ You + Me ❤</p>
+    <p>🚀 Love you to infinity and beyond</p>
+  </div>
+  <div class="promises-box" aria-label="Promises">
+    <div class="promises-title">My Promises To You 💞</div>
+    <ul class="promises-list">
+      <li>I promise to love you with my whole heart every single day.</li>
+      <li>I promise to stand beside you through all of life’s adventures.</li>
+      <li>I promise to encourage your dreams and celebrate your triumphs.</li>
+      <li>I promise to keep making you laugh and smile, no matter what.</li>
+      <li>I promise to be your shelter and warmth in every storm.</li>
+      <li>I promise to listen with patience, kindness, and an open heart.</li>
+      <li>I promise honesty, trust, and endless understanding.</li>
+      <li>I promise silly dances, songs, and moments just for us.</li>
+      <li>I promise to lift you up when life feels heavy or uncertain.</li>
+      <li>I promise to love you fiercely, faithfully, and forevermore.</li>
+    </ul>
+  </div>
+  <div class="ending-box" aria-label="Ending message">forever your's Penguin</div>
+</div>
+
+<script>
+  function createHeart(){
+    const heart=document.createElement('div');
+    heart.className='heart';
+    const colors=['pink','red','navy'];
+    heart.classList.add(colors[Math.floor(Math.random()*colors.length)]);
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.animationDuration=(5+Math.random()*5)+'s';
+    const size=(15+Math.random()*15)+'px';
+    heart.style.width=size;
+    heart.style.height=size;
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(),10000);
+  }
+  setInterval(createHeart,500);
+
+  const greetingPopup=document.getElementById('greetingPopup');
+  const candleOverlay=document.getElementById('candleOverlay');
+  const mainContent=document.getElementById('mainContent');
+  const candlesWrapper=candleOverlay.querySelector('.candles-wrapper');
+  const flames = candleOverlay.querySelectorAll('.flame');
+
+  setTimeout(() => {
+    greetingPopup.classList.add('hidden');
+    candleOverlay.classList.remove('hidden');
+    candlesWrapper.focus();
+  }, 5000);
+
+  function blowOutCandles() {
+    if([...flames].every(f => f.classList.contains('blowed'))) return;
+    flames.forEach(f => f.classList.add('blowed'));
+    candlesWrapper.setAttribute('aria-pressed', 'true');
+    setTimeout(() => {
+      candleOverlay.classList.add('hidden');
+      mainContent.style.display = 'flex';
+    }, 2200);
+  }
+
+  candlesWrapper.addEventListener('click', blowOutCandles);
+  candlesWrapper.addEventListener('keydown', e => {
+    if(e.key==='Enter' || e.key===' '){
+      e.preventDefault();
+      blowOutCandles();
+    }
+  });
+</script>
+</body>
+</html>
